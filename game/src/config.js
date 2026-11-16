@@ -22,10 +22,10 @@ export const DASH = {
 export const CORE = {
   radius: 11,
   baseValue: 10,
-  spawnEveryMs: 900,
-  maxAlive: 9,
-  driftMin: 24,
-  driftMax: 62,
+  spawnEveryMs: 750,
+  maxAlive: 11,
+  driftMin: 40,
+  driftMax: 95,
   magnetSpeed: 520,
 };
 

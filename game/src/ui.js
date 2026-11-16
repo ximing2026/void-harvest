@@ -78,7 +78,7 @@ export function drawTitle(ctx, best) {
 export function drawUpgrade(ctx, world, offer, mouse) {
   ctx.fillStyle = 'rgba(4,5,14,0.72)';
   ctx.fillRect(0, 0, ARENA.width, ARENA.height);
-  text(ctx, `WAVE ${world.wave} CLEARED`, ARENA.width / 2, 196, 40, COLORS.text, 'center', 800);
+  text(ctx, `WAVE ${world.wave - 1} CLEARED`, ARENA.width / 2, 196, 40, COLORS.text, 'center', 800);
   text(ctx, `score ${world.score} — choose one refit to fly on`, ARENA.width / 2, 240, 18, COLORS.dim, 'center');
   const cards = upgradeCards();
   offer.forEach((u, i) => {

@@ -148,6 +148,8 @@ export class World {
       core.vx *= 0.995; core.vy *= 0.995;
       core.pulse += dt * 4;
     }
+    // A core flung wide of the arena is lost to the void; free its spawn slot.
+    this.cores = this.cores.filter((core) => core.x > -90 && core.x < ARENA.width + 90 && core.y > -90 && core.y < ARENA.height + 90);
     const touchCore = (SHIP.radius + CORE.radius) * (SHIP.radius + CORE.radius);
     this.cores = this.cores.filter((core) => {
       if (dist2(core, ship) > touchCore) return true;
