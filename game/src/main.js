@@ -58,7 +58,7 @@ function toUpgrade() {
 
 function pickUpgrade(index) {
   if (index < 0 || index >= offer.length) return;
-  offer[index].apply(world.run);
+  offer[index].apply(world);
   state = 'playing';
   sfx.launch();
 }

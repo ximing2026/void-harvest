@@ -95,13 +95,15 @@ export function drawMines(ctx, world) {
 
 export function drawShip(ctx, world, now) {
   const ship = world.ship;
-  // Engine trail.
+  // Engine trail. Particles and trail points are only reaped while the world updates,
+  // so on the still screens their age can run past their life: skip the spent ones.
   for (const p of ship.trail) {
     const age = 1 - (now - p.at) / 220;
+    if (age <= 0) continue;
     ctx.globalAlpha = age * 0.3;
     ctx.fillStyle = COLORS.ship;
     ctx.beginPath();
-    ctx.arc(p.x, p.y, SHIP.radius * 0.55 * age + 1, 0, Math.PI * 2);
+    ctx.arc(p.x, p.y, Math.max(0.1, SHIP.radius * 0.55 * age + 1), 0, Math.PI * 2);
     ctx.fill();
   }
   ctx.globalAlpha = 1;
@@ -139,10 +141,11 @@ export function drawShip(ctx, world, now) {
 export function drawParticles(ctx, world, now) {
   for (const p of world.particles) {
     const age = 1 - (now - p.born) / p.life;
-    ctx.globalAlpha = Math.max(0, age);
+    if (age <= 0) continue;
+    ctx.globalAlpha = age;
     ctx.fillStyle = p.color;
     ctx.beginPath();
-    ctx.arc(p.x + p.vx * ((now - p.born) / 1000), p.y + p.vy * ((now - p.born) / 1000), p.size * age + 0.4, 0, Math.PI * 2);
+    ctx.arc(p.x + p.vx * ((now - p.born) / 1000), p.y + p.vy * ((now - p.born) / 1000), Math.max(0.1, p.size * age + 0.4), 0, Math.PI * 2);
     ctx.fill();
   }
   ctx.globalAlpha = 1;
